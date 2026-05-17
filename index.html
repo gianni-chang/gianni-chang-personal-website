@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gianni Chang — Business Analyst</title>
+  <meta name="description" content="Gianni Chang — Business Analyst at the London Borough of Camden, specialising in Oracle Fusion Cloud, business process improvement, and project delivery." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================
+       DESIGN TOKENS — light mode defaults
+    ========================================================= */
+    :root {
+      --bg:          #FAF7F2;
+      --bg-alt:      #F3EFE8;   /* slightly deeper cream for card surfaces */
+      --text:        #1A1A1A;
+      --text-muted:  #5A5A5A;
+      --accent:      #1E3A5F;
+      --accent-soft: rgba(30, 58, 95, 0.08);
+      --border:      rgba(30, 58, 95, 0.15);
+      --shadow:      rgba(30, 58, 95, 0.10);
+      --radius:      12px;
+      --radius-sm:   8px;
+      --transition:  0.3s ease;
+    }
+
+    /* Dark mode — applied via class on <html> */
+    html.dark {
+      --bg:          #1A1814;
+      --bg-alt:      #23201B;
+      --text:        #F2EFE8;
+      --text-muted:  #A89F94;
+      --accent:      #5B7CA8;
+      --accent-soft: rgba(91, 124, 168, 0.12);
+      --border:      rgba(91, 124, 168, 0.20);
+      --shadow:      rgba(0, 0, 0, 0.40);
+    }
+
+    /* =========================================================
+       RESET & BASE
+    ========================================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      transition: background-color var(--transition), color var(--transition);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* =========================================================
+       TYPOGRAPHY
+    ========================================================= */
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    h1 { font-size: clamp(2.4rem, 5vw, 4rem); }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); }
+    h3 { font-size: 1.2rem; }
+
+    p { color: var(--text-muted); line-height: 1.8; }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: opacity var(--transition);
+    }
+    a:hover { opacity: 0.75; }
+
+    /* Section heading + decorative rule */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 3rem;
+    }
+    .section-label h2 { flex-shrink: 0; }
+    .section-label::after {
+      content: '';
+      display: block;
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* =========================================================
+       LAYOUT HELPERS
+    ========================================================= */
+    .container {
+      width: 90%;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    /* =========================================================
+       FADE-IN ANIMATION (Intersection Observer)
+    ========================================================= */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger delay helpers */
+    .delay-1 { transition-delay: 0.10s; }
+    .delay-2 { transition-delay: 0.20s; }
+    .delay-3 { transition-delay: 0.30s; }
+    .delay-4 { transition-delay: 0.40s; }
+    .delay-5 { transition-delay: 0.50s; }
+    .delay-6 { transition-delay: 0.60s; }
+
+    /* =========================================================
+       NAVIGATION
+    ========================================================= */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--bg);
+      border-bottom: 1px solid var(--border);
+      transition: background-color var(--transition), border-color var(--transition);
+      /* Subtle frosted-glass feel */
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      background-color: rgba(250, 247, 242, 0.92);
+    }
+    html.dark header {
+      background-color: rgba(26, 24, 20, 0.92);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    /* Monogram */
+    .nav-monogram {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-monogram:hover { opacity: 1; }
+
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      transition: color var(--transition);
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+      opacity: 1;
+    }
+
+    /* Dark mode toggle button */
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: border-color var(--transition), color var(--transition), background-color var(--transition);
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .theme-toggle svg { width: 16px; height: 16px; }
+
+    /* Hamburger (mobile) */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+      padding: 4px;
+    }
+    .nav-hamburger svg { width: 22px; height: 22px; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Mobile nav overlay */
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      background-color: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0.5rem 0 1rem;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      display: block;
+      padding: 0.75rem 5%;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+
+    /* =========================================================
+       BUTTONS
+    ========================================================= */
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover {
+      opacity: 0.88;
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .btn-outline:hover {
+      background-color: var(--accent-soft);
+      opacity: 1;
+    }
+
+    /* =========================================================
+       HERO SECTION
+    ========================================================= */
+    #hero {
+      padding-top: 80px;
+      padding-bottom: 80px;
+      min-height: calc(100vh - 64px);
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .hero-name {
+      margin-bottom: 0.75rem;
+      font-weight: 400; /* Playfair 400 is already refined */
+    }
+
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .hero-intro {
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Portrait */
+    .hero-photo-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-photo {
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 60px var(--shadow), 0 4px 16px var(--shadow);
+      /* Subtle border for texture */
+      outline: 1px solid var(--border);
+      outline-offset: -1px;
+      transition: box-shadow var(--transition);
+    }
+
+    /* =========================================================
+       ABOUT SECTION
+    ========================================================= */
+    #about { background-color: var(--bg-alt); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      margin-bottom: 1.2rem;
+    }
+    .about-text p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .about-italic {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-top: 1.75rem;
+      padding-left: 1.25rem;
+      border-left: 2px solid var(--accent);
+    }
+
+    /* Quick facts card */
+    .quick-facts {
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: 0 4px 24px var(--shadow);
+    }
+
+    .quick-facts h3 {
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
+    .fact-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .fact-row:last-child { border-bottom: none; }
+
+    .fact-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .fact-value {
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    /* =========================================================
+       EXPERIENCE SECTION
+    ========================================================= */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    /* Vertical line */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+
+    /* Dot on the line */
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 10px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background-color: var(--accent);
+      transform: translateX(-4px);
+      box-shadow: 0 0 0 3px var(--bg-alt);
+    }
+
+    /* Card */
+    .timeline-card {
+      background-color: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem 2rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .timeline-card:hover {
+      box-shadow: 0 8px 32px var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .timeline-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-company {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .timeline-meta {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-role {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-bullets {
+      padding-left: 1.2rem;
+      list-style: none;
+    }
+    .timeline-bullets li {
+      position: relative;
+      padding-left: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .timeline-bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* =========================================================
+       SKILLS SECTION
+    ========================================================= */
+    #skills { background-color: var(--bg-alt); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .skill-card:hover {
+      box-shadow: 0 8px 32px var(--shadow);
+      transform: translateY(-3px);
+    }
+
+    .skill-card-icon {
+      width: 40px;
+      height: 40px;
+      background-color: var(--accent-soft);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      color: var(--accent);
+    }
+    .skill-card-icon svg { width: 20px; height: 20px; }
+
+    .skill-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .skill-list li {
+      font-size: 0.8rem;
+      font-weight: 500;
+      background-color: var(--accent-soft);
+      color: var(--accent);
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+    }
+
+    /* =========================================================
+       PROJECTS SECTION
+    ========================================================= */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background-color: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .project-card:hover {
+      box-shadow: 0 8px 32px var(--shadow);
+      transform: translateY(-3px);
+    }
+
+    .project-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background-color: var(--accent-soft);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.2rem 0.65rem;
+      width: fit-content;
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .project-scope {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Coming soon card */
+    .project-card.coming-soon {
+      border-style: dashed;
+      opacity: 0.7;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 180px;
+    }
+    .project-card.coming-soon .project-desc {
+      font-style: italic;
+      flex: unset;
+    }
+
+    /* =========================================================
+       CONNECT SECTION
+    ========================================================= */
+    #connect { background-color: var(--bg-alt); }
+
+    .connect-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+    }
+
+    .connect-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* Contact form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      width: 100%;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    /* Validation states */
+    .form-group input.invalid,
+    .form-group textarea.invalid {
+      border-color: #c0392b;
+    }
+
+    .form-error {
+      font-size: 0.78rem;
+      color: #c0392b;
+      display: none;
+    }
+    .form-group.has-error .form-error { display: block; }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .form-success {
+      display: none;
+      padding: 1rem;
+      background-color: rgba(30, 58, 95, 0.08);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+
+    /* Contact info panel */
+    .connect-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .connect-info-intro {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-link-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 1rem 1.25rem;
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .contact-link-item:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px var(--shadow);
+      opacity: 1;
+      color: var(--accent);
+    }
+    .contact-link-item svg {
+      color: var(--accent);
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-copy {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .footer-right a {
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .footer-right a:hover {
+      color: var(--accent);
+      opacity: 1;
+    }
+    .footer-right svg { width: 18px; height: 18px; }
+
+    .footer-craft {
+      width: 100%;
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      opacity: 0.6;
+      letter-spacing: 0.04em;
+    }
+
+    /* =========================================================
+       RESPONSIVE — TABLET (≤ 900px)
+    ========================================================= */
+    @media (max-width: 900px) {
+      .hero-grid,
+      .about-grid,
+      .connect-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Move photo above text on tablet/mobile */
+      .hero-photo-wrap {
+        order: -1;
+      }
+      .hero-photo {
+        max-width: 280px;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav-links {
+        display: none; /* hidden; shown via hamburger */
+      }
+      .nav-hamburger {
+        display: block;
+      }
+    }
+
+    /* =========================================================
+       RESPONSIVE — MOBILE (≤ 600px)
+    ========================================================= */
+    @media (max-width: 600px) {
+      section { padding: 72px 0; }
+
+      #hero { padding-top: 48px; padding-bottom: 48px; min-height: unset; }
+
+      .skills-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline { padding-left: 1.5rem; }
+
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =====================================================================
+       HEADER / NAV
+  ====================================================================== -->
+  <header>
+    <div class="container">
+      <nav aria-label="Main navigation">
+        <a href="#hero" class="nav-monogram" aria-label="Gianni Chang — home">GC</a>
+
+        <ul class="nav-links" role="list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#connect">Connect</a></li>
+        </ul>
+
+        <div class="nav-right">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">
+            <!-- Sun icon (shown in dark mode) -->
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+            <!-- Moon icon (shown in light mode) -->
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+
+          <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Mobile nav dropdown -->
+    <nav class="nav-mobile" id="navMobile" aria-label="Mobile navigation">
+      <a href="#about" class="nav-mobile-link">About</a>
+      <a href="#experience" class="nav-mobile-link">Experience</a>
+      <a href="#skills" class="nav-mobile-link">Skills</a>
+      <a href="#projects" class="nav-mobile-link">Projects</a>
+      <a href="#connect" class="nav-mobile-link">Connect</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- =====================================================================
+         HERO
+    ====================================================================== -->
+    <section id="hero">
+      <div class="container">
+        <div class="hero-grid">
+
+          <!-- Text column -->
+          <div class="hero-text">
+            <p class="hero-eyebrow fade-in">Business Analyst · London</p>
+            <h1 class="hero-name fade-in delay-1">Gianni Chang</h1>
+            <p class="hero-tagline fade-in delay-2">Business Analyst building bridges between people, processes, and Oracle Cloud.</p>
+            <p class="hero-intro fade-in delay-3">
+              I work at the intersection of business analysis, enterprise systems, and AI-assisted delivery — currently leading Oracle Cloud transformation work in UK public sector. Originally from Spain, based in London.
+            </p>
+            <div class="hero-buttons fade-in delay-4">
+              <a href="#connect" class="btn btn-primary">Get in touch</a>
+              <a href="https://www.linkedin.com/in/gianni-chang/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">View LinkedIn</a>
+            </div>
+          </div>
+
+          <!-- Photo column -->
+          <div class="hero-photo-wrap fade-in delay-2">
+            <img
+              src="portrait.jpg"
+              alt="Portrait of Gianni Chang"
+              class="hero-photo"
+              loading="eager"
+            />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         ABOUT
+    ====================================================================== -->
+    <section id="about">
+      <div class="container">
+
+        <div class="section-label fade-in">
+          <h2>About</h2>
+        </div>
+
+        <div class="about-grid">
+
+          <!-- Left: paragraphs -->
+          <div class="about-text">
+            <p class="fade-in delay-1">
+              I'm a Business Analyst at the London Borough of Camden, working within the Oracle Cloud Support Team on a wide range of Fusion Cloud workstreams — from Procurement and Purchase-to-Pay through to Analytics, Contracts, and the Redwood transition. My role sits at the crossroads of functional system knowledge, process improvement, and hands-on project delivery.
+            </p>
+            <p class="fade-in delay-2">
+              My background is a little unconventional: I studied Mechanical Engineering before moving into Business Analysis through the Peregrine Novus BA Graduate Scheme, a BCS-aligned programme. That dual foundation — engineering rigour plus structured BA methodology — is exactly how I approach problems: understand the system, map the process, identify constraints, agree the options, deliver a clear plan.
+            </p>
+            <p class="fade-in delay-3">
+              Right now I'm focused on Oracle Fusion delivery across several live workstreams: FAIDP/FDI Analytics implementation, the Redwood UI transition, Responsive Self Service Procurement and Receiving, and user enablement programmes for council staff. There's always something at a different stage of the lifecycle — and I find that variety genuinely energising.
+            </p>
+            <p class="fade-in delay-4">
+              Longer term, I'm building AI fluency — learning to create software, automations, websites, and digital products using AI as a creative partner. My aim is to combine deep domain knowledge in enterprise systems with the speed and flexibility of AI-assisted building, and eventually to create something entirely my own.
+            </p>
+            <p class="about-italic fade-in delay-5">
+              Outside work, you'll find me on the field hockey pitch or somewhere along the Mediterranean coast.
+            </p>
+          </div>
+
+          <!-- Right: quick facts card -->
+          <div class="fade-in delay-2">
+            <div class="quick-facts">
+              <h3>Quick Facts</h3>
+
+              <div class="fact-row">
+                <span class="fact-label">Location</span>
+                <span class="fact-value">London, UK</span>
+              </div>
+              <div class="fact-row">
+                <span class="fact-label">Origin</span>
+                <span class="fact-value">Spain</span>
+              </div>
+              <div class="fact-row">
+                <span class="fact-label">Languages</span>
+                <span class="fact-value">English, Spanish</span>
+              </div>
+              <div class="fact-row">
+                <span class="fact-label">Current Role</span>
+                <span class="fact-value">Business Analyst, London Borough of Camden</span>
+              </div>
+              <div class="fact-row">
+                <span class="fact-label">Currently Exploring</span>
+                <span class="fact-value">AI-assisted software development</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         EXPERIENCE
+    ====================================================================== -->
+    <section id="experience">
+      <div class="container">
+
+        <div class="section-label fade-in">
+          <h2>Experience</h2>
+        </div>
+
+        <div class="timeline">
+
+          <!-- Camden -->
+          <div class="timeline-item fade-in delay-1">
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <span class="timeline-company">London Borough of Camden</span>
+                <span class="timeline-meta">2024 – Present · London, UK</span>
+              </div>
+              <p class="timeline-role">Business Analyst / Oracle Cloud Functional Analyst</p>
+              <ul class="timeline-bullets">
+                <li>Lead Oracle Fusion Cloud functional delivery across Procurement, P2P, and Analytics</li>
+                <li>Coordinated rollout of Responsive Self Service Procurement and rationalised Oracle Purchasing licensing</li>
+                <li>Leading implementation of FAIDP / Fusion Data Intelligence for council-wide analytics</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Peregrine -->
+          <div class="timeline-item fade-in delay-2">
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <span class="timeline-company">Peregrine</span>
+                <span class="timeline-meta">2023 – 2024</span>
+              </div>
+              <p class="timeline-role">Business Analyst — Novus Graduate Scheme</p>
+              <ul class="timeline-bullets">
+                <li>Completed BCS-aligned Business Analysis training</li>
+                <li>Delivered structured BA techniques on real client engagements</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- University -->
+          <div class="timeline-item fade-in delay-3">
+            <div class="timeline-card">
+              <div class="timeline-header">
+                <span class="timeline-company">University</span>
+                <span class="timeline-meta">Year – Year</span>
+              </div>
+              <p class="timeline-role">Mechanical Engineering — BEng</p>
+              <ul class="timeline-bullets">
+                <li>Engineering foundation in systems thinking, problem decomposition, and analytical rigour</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         SKILLS & SPECIALISMS
+    ====================================================================== -->
+    <section id="skills">
+      <div class="container">
+
+        <div class="section-label fade-in">
+          <h2>Skills &amp; Specialisms</h2>
+        </div>
+
+        <div class="skills-grid">
+
+          <!-- Oracle Fusion Cloud -->
+          <div class="skill-card fade-in delay-1">
+            <div class="skill-card-icon" aria-hidden="true">
+              <!-- Cloud icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+              </svg>
+            </div>
+            <h3>Oracle Fusion Cloud</h3>
+            <ul class="skill-list">
+              <li>Procurement &amp; P2P</li>
+              <li>RSSP / RSSR</li>
+              <li>Contracts &amp; Approvals</li>
+              <li>Analytics (FAIDP / FDI)</li>
+              <li>Redwood Pages</li>
+              <li>Visual Builder Studio</li>
+            </ul>
+          </div>
+
+          <!-- Business Analysis -->
+          <div class="skill-card fade-in delay-2">
+            <div class="skill-card-icon" aria-hidden="true">
+              <!-- Clipboard icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+              </svg>
+            </div>
+            <h3>Business Analysis</h3>
+            <ul class="skill-list">
+              <li>Requirements gathering</li>
+              <li>Options analysis</li>
+              <li>Process mapping</li>
+              <li>UAT planning</li>
+              <li>Hypercare</li>
+              <li>BCS-trained</li>
+            </ul>
+          </div>
+
+          <!-- Delivery & Communication -->
+          <div class="skill-card fade-in delay-3">
+            <div class="skill-card-icon" aria-hidden="true">
+              <!-- Users icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3>Delivery &amp; Communication</h3>
+            <ul class="skill-list">
+              <li>Stakeholder engagement</li>
+              <li>Training &amp; enablement</li>
+              <li>Release notes</li>
+              <li>User guides</li>
+              <li>Executive communication</li>
+            </ul>
+          </div>
+
+          <!-- Emerging -->
+          <div class="skill-card fade-in delay-4">
+            <div class="skill-card-icon" aria-hidden="true">
+              <!-- Zap / lightning icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </div>
+            <h3>Emerging</h3>
+            <ul class="skill-list">
+              <li>AI-assisted development</li>
+              <li>Prompt engineering</li>
+              <li>Rapid prototyping with Claude</li>
+              <li>Website building</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         PROJECTS
+    ====================================================================== -->
+    <section id="projects">
+      <div class="container">
+
+        <div class="section-label fade-in">
+          <h2>Projects &amp; Highlights</h2>
+        </div>
+
+        <div class="projects-grid">
+
+          <!-- RSSP -->
+          <div class="project-card fade-in delay-1">
+            <span class="project-tag">Procurement</span>
+            <h3 class="project-title">Responsive Self Service Procurement (RSSP)</h3>
+            <p class="project-desc">Rollout, training, hypercare, and transition from Classic Purchase Requisitions.</p>
+            <p class="project-scope">Camden Council, UK</p>
+          </div>
+
+          <!-- Licence Rationalisation -->
+          <div class="project-card fade-in delay-2">
+            <span class="project-tag">Licensing</span>
+            <h3 class="project-title">Procurement Licence Rationalisation</h3>
+            <p class="project-desc">Centralised PO management to reduce Oracle Purchasing licence consumption.</p>
+            <p class="project-scope">Camden Council, UK</p>
+          </div>
+
+          <!-- RSSR -->
+          <div class="project-card fade-in delay-3">
+            <span class="project-tag">Receiving</span>
+            <h3 class="project-title">Responsive Self Service Receiving (RSSR)</h3>
+            <p class="project-desc">UAT planning, scenarios, briefing materials, and environment design.</p>
+            <p class="project-scope">Camden Council, UK</p>
+          </div>
+
+          <!-- FAIDP -->
+          <div class="project-card fade-in delay-4">
+            <span class="project-tag">Analytics</span>
+            <h3 class="project-title">FAIDP / Fusion Data Intelligence</h3>
+            <p class="project-desc">Implementation approach for Oracle's analytics platform, dashboard validation, and user onboarding.</p>
+            <p class="project-scope">Camden Council, UK</p>
+          </div>
+
+          <!-- HeyCentric -->
+          <div class="project-card fade-in delay-5">
+            <span class="project-tag">Integration</span>
+            <h3 class="project-title">HeyCentric Replacement</h3>
+            <p class="project-desc">Oracle-side coordination across integration, reporting, testing, release notes, and go-live.</p>
+            <p class="project-scope">Camden Council, UK</p>
+          </div>
+
+          <!-- Coming soon -->
+          <div class="project-card coming-soon fade-in delay-6">
+            <p class="project-desc">More projects in development — exploring AI-assisted tools and personal builds.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         CONNECT
+    ====================================================================== -->
+    <section id="connect">
+      <div class="container">
+
+        <div class="section-label fade-in">
+          <h2>Connect</h2>
+        </div>
+
+        <p class="connect-subtitle fade-in delay-1">Open to interesting conversations, collaborations, and opportunities.</p>
+
+        <div class="connect-grid">
+
+          <!-- Contact form -->
+          <div class="fade-in delay-1">
+            <form class="contact-form" id="contactForm" action="#" novalidate>
+
+              <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
+                <div class="form-group" id="group-name">
+                  <label for="name">Name</label>
+                  <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" />
+                  <span class="form-error" role="alert">Please enter your name.</span>
+                </div>
+                <div class="form-group" id="group-email">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" />
+                  <span class="form-error" role="alert">Please enter a valid email.</span>
+                </div>
+              </div>
+
+              <div class="form-group" id="group-subject">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" placeholder="What's this about?" />
+                <span class="form-error" role="alert">Please enter a subject.</span>
+              </div>
+
+              <div class="form-group" id="group-message">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Your message…"></textarea>
+                <span class="form-error" role="alert">Please enter a message.</span>
+              </div>
+
+              <div>
+                <button type="submit" class="btn btn-primary">Send message</button>
+              </div>
+
+              <!-- Success message (hidden until submission) -->
+              <div class="form-success" id="formSuccess" role="status">
+                Thanks for reaching out — I'll get back to you soon.
+              </div>
+
+            </form>
+          </div>
+
+          <!-- Contact info -->
+          <div class="connect-info fade-in delay-2">
+            <p class="connect-info-intro">
+              The quickest way to reach me is by email or LinkedIn. I'm always happy to talk about Oracle Cloud, business analysis, or what I'm building next.
+            </p>
+            <div class="contact-links">
+
+              <!-- Email -->
+              <a href="mailto:gianni.chang@example.com" class="contact-link-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+                gianni.chang@example.com
+              </a>
+
+              <!-- LinkedIn -->
+              <a href="https://www.linkedin.com/in/gianni-chang/" target="_blank" rel="noopener noreferrer" class="contact-link-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                  <rect x="2" y="9" width="4" height="12"/>
+                  <circle cx="4" cy="4" r="2"/>
+                </svg>
+                linkedin.com/in/gianni-chang
+              </a>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       FOOTER
+  ====================================================================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-copy">Gianni Chang &copy; 2026</p>
+        <div class="footer-right">
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/gianni-chang/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <!-- GitHub -->
+          <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <p class="footer-craft">Crafted in London with Claude.</p>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       JAVASCRIPT
+  ====================================================================== -->
+  <script>
+    // -----------------------------------------------------------------------
+    // 1. DARK MODE
+    // Reads from localStorage on load; toggles class on <html>; persists choice.
+    // -----------------------------------------------------------------------
+    const html        = document.documentElement;
+    const toggleBtn   = document.getElementById('themeToggle');
+    const iconSun     = toggleBtn.querySelector('.icon-sun');
+    const iconMoon    = toggleBtn.querySelector('.icon-moon');
+
+    function applyTheme(isDark) {
+      if (isDark) {
+        html.classList.add('dark');
+        iconSun.style.display  = 'block';
+        iconMoon.style.display = 'none';
+        toggleBtn.setAttribute('aria-pressed', 'true');
+        toggleBtn.setAttribute('aria-label', 'Switch to light mode');
+      } else {
+        html.classList.remove('dark');
+        iconSun.style.display  = 'none';
+        iconMoon.style.display = 'block';
+        toggleBtn.setAttribute('aria-pressed', 'false');
+        toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
+      }
+    }
+
+    // On initial load, respect localStorage, else respect OS preference
+    const stored   = localStorage.getItem('theme');
+    const prefDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(stored === 'dark' || (!stored && prefDark));
+
+    // Toggle on click
+    toggleBtn.addEventListener('click', () => {
+      const nowDark = !html.classList.contains('dark');
+      applyTheme(nowDark);
+      localStorage.setItem('theme', nowDark ? 'dark' : 'light');
+    });
+
+
+    // -----------------------------------------------------------------------
+    // 2. MOBILE HAMBURGER MENU
+    // -----------------------------------------------------------------------
+    const hamburger = document.getElementById('navHamburger');
+    const mobileNav = document.getElementById('navMobile');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close mobile nav when a link is clicked
+    document.querySelectorAll('.nav-mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+
+    // -----------------------------------------------------------------------
+    // 3. INTERSECTION OBSERVER — fade-in animations
+    // Elements with class .fade-in become .visible when they enter the viewport.
+    // -----------------------------------------------------------------------
+    const fadeEls = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // Unobserve after animating so it doesn't reset on scroll-back
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    fadeEls.forEach(el => observer.observe(el));
+
+    // Trigger elements already in view on load (hero section)
+    // Small delay lets the CSS transition land correctly
+    requestAnimationFrame(() => {
+      fadeEls.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+          el.classList.add('visible');
+        }
+      });
+    });
+
+
+    // -----------------------------------------------------------------------
+    // 4. CONTACT FORM — client-side validation
+    // The form's action="#" is a placeholder for Formspree or similar.
+    // -----------------------------------------------------------------------
+    const form       = document.getElementById('contactForm');
+    const successMsg = document.getElementById('formSuccess');
+
+    function validateField(input) {
+      const groupId = 'group-' + input.id;
+      const group   = document.getElementById(groupId);
+      if (!group) return true;
+
+      let valid = true;
+
+      if (input.type === 'email') {
+        // Simple email pattern check
+        valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim());
+      } else {
+        valid = input.value.trim().length > 0;
+      }
+
+      group.classList.toggle('has-error', !valid);
+      input.classList.toggle('invalid', !valid);
+      return valid;
+    }
+
+    // Live validation on blur (after the user has left the field)
+    form.querySelectorAll('input, textarea').forEach(input => {
+      input.addEventListener('blur', () => validateField(input));
+      // Clear error as soon as the user starts typing
+      input.addEventListener('input', () => {
+        const groupId = 'group-' + input.id;
+        const group   = document.getElementById(groupId);
+        if (group && group.classList.contains('has-error')) {
+          group.classList.remove('has-error');
+          input.classList.remove('invalid');
+        }
+      });
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // Remove this line once Formspree action is wired up
+
+      // Validate all fields
+      const fields  = form.querySelectorAll('input, textarea');
+      let   allOk   = true;
+      fields.forEach(f => { if (!validateField(f)) allOk = false; });
+
+      if (!allOk) return;
+
+      // Placeholder: show success message
+      // When wired to Formspree, replace this block with a fetch() POST
+      form.style.display     = 'none';
+      successMsg.style.display = 'block';
+    });
+
+  </script>
+
+</body>
+</html>
