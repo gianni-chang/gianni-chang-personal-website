@@ -756,6 +756,16 @@
       color: var(--accent);
     }
 
+    .form-send-error {
+      padding: 1rem;
+      background-color: rgba(180, 30, 30, 0.07);
+      border: 1px solid rgba(180, 30, 30, 0.3);
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      color: #b41e1e;
+      margin-top: 0.75rem;
+    }
+
     /* Contact info panel */
     .connect-info {
       display: flex;
@@ -1292,7 +1302,7 @@
 
           <!-- Contact form -->
           <div class="fade-in delay-1">
-            <form class="contact-form" id="contactForm" action="#" novalidate>
+            <form class="contact-form" id="contactForm" action="https://formspree.io/f/xbdbgkyn" method="POST" novalidate>
 
               <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;">
                 <div class="form-group" id="group-name">
@@ -1326,6 +1336,11 @@
               <!-- Success message (hidden until submission) -->
               <div class="form-success" id="formSuccess" role="status">
                 Thanks for reaching out — I'll get back to you soon.
+              </div>
+
+              <!-- Error message shown if Formspree request fails -->
+              <div class="form-send-error" id="formError" role="alert" style="display:none;">
+                Something went wrong — please try again or email me directly.
               </div>
 
             </form>
@@ -1490,11 +1505,11 @@
 
 
     // -----------------------------------------------------------------------
-    // 4. CONTACT FORM — client-side validation
-    // The form's action="#" is a placeholder for Formspree or similar.
+    // 4. CONTACT FORM — client-side validation + Formspree submission
     // -----------------------------------------------------------------------
     const form       = document.getElementById('contactForm');
     const successMsg = document.getElementById('formSuccess');
+    const errorMsg   = document.getElementById('formError');
 
     function validateField(input) {
       const groupId = 'group-' + input.id;
@@ -1529,20 +1544,49 @@
       });
     });
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault(); // Remove this line once Formspree action is wired up
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-      // Validate all fields
-      const fields  = form.querySelectorAll('input, textarea');
-      let   allOk   = true;
+      // Validate all fields first; bail out if any fail
+      const fields = form.querySelectorAll('input, textarea');
+      let allOk = true;
       fields.forEach(f => { if (!validateField(f)) allOk = false; });
-
       if (!allOk) return;
 
-      // Placeholder: show success message
-      // When wired to Formspree, replace this block with a fetch() POST
-      form.style.display     = 'none';
-      successMsg.style.display = 'block';
+      // Disable the button while the request is in flight
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      errorMsg.style.display = 'none';
+
+      try {
+        const response = await fetch('https://formspree.io/f/xbdbgkyn', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name:    document.getElementById('name').value.trim(),
+            email:   document.getElementById('email').value.trim(),
+            subject: document.getElementById('subject').value.trim(),
+            message: document.getElementById('message').value.trim()
+          })
+        });
+
+        if (response.ok) {
+          form.style.display    = 'none';
+          successMsg.style.display = 'block';
+        } else {
+          errorMsg.style.display  = 'block';
+          submitBtn.disabled      = false;
+          submitBtn.textContent   = 'Send message';
+        }
+      } catch (_) {
+        errorMsg.style.display  = 'block';
+        submitBtn.disabled      = false;
+        submitBtn.textContent   = 'Send message';
+      }
     });
 
   </script>
