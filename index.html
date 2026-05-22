@@ -668,6 +668,94 @@
     }
 
     /* =========================================================
+       BOOK A CALL (subsection within Connect)
+    ========================================================= */
+    .book-call {
+      margin-bottom: 4rem;
+    }
+
+    .book-call-heading-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+    .book-call-heading-wrap h3 {
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .book-call-heading-wrap::after {
+      content: '';
+      display: block;
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .book-call-intro {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .booking-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .booking-card {
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .booking-card:hover {
+      box-shadow: 0 8px 32px var(--shadow);
+      transform: translateY(-3px);
+    }
+
+    .booking-card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      flex: 1;
+    }
+
+    .booking-duration {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .booking-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .booking-card-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .book-call-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 4rem;
+    }
+
+    /* =========================================================
        CONNECT SECTION
     ========================================================= */
     #connect { background-color: var(--bg-alt); }
@@ -900,7 +988,8 @@
       #hero { padding-top: 48px; padding-bottom: 48px; min-height: unset; }
 
       .skills-grid,
-      .projects-grid {
+      .projects-grid,
+      .booking-cards {
         grid-template-columns: 1fr;
       }
 
@@ -927,6 +1016,7 @@
           <li><a href="#experience">Experience</a></li>
           <li><a href="#skills">Skills</a></li>
           <li><a href="#projects">Projects</a></li>
+          <li><a href="#book">Book</a></li>
           <li><a href="#connect">Connect</a></li>
         </ul>
 
@@ -967,6 +1057,7 @@
       <a href="#experience" class="nav-mobile-link">Experience</a>
       <a href="#skills" class="nav-mobile-link">Skills</a>
       <a href="#projects" class="nav-mobile-link">Projects</a>
+      <a href="#book" class="nav-mobile-link">Book</a>
       <a href="#connect" class="nav-mobile-link">Connect</a>
     </nav>
   </header>
@@ -1298,6 +1389,48 @@
 
         <p class="connect-subtitle fade-in delay-1">Open to interesting conversations, collaborations, and opportunities.</p>
 
+        <!-- Book a call -->
+        <div class="book-call" id="book">
+
+          <div class="book-call-heading-wrap fade-in delay-1">
+            <h3>Book a call</h3>
+          </div>
+
+          <p class="book-call-intro fade-in delay-2">Prefer to talk? Grab a time that works for you.</p>
+
+          <div class="booking-cards">
+
+            <div class="booking-card fade-in delay-2">
+              <div class="booking-card-body">
+                <span class="booking-duration">15 minutes</span>
+                <h4>Quick Call</h4>
+                <p class="booking-card-subtitle">A brief intro chat</p>
+              </div>
+              <button
+                class="btn btn-primary"
+                data-cal-link="gianni-chang/15min"
+                data-cal-config='{"layout":"month_view","theme":"auto"}'
+              >Book 15 min</button>
+            </div>
+
+            <div class="booking-card fade-in delay-3">
+              <div class="booking-card-body">
+                <span class="booking-duration">30 minutes</span>
+                <h4>Deep Dive</h4>
+                <p class="booking-card-subtitle">A longer conversation</p>
+              </div>
+              <button
+                class="btn btn-primary"
+                data-cal-link="gianni-chang/30min"
+                data-cal-config='{"layout":"month_view","theme":"auto"}'
+              >Book 30 min</button>
+            </div>
+
+          </div>
+        </div>
+
+        <hr class="book-call-divider fade-in" />
+
         <div class="connect-grid">
 
           <!-- Contact form -->
@@ -1448,6 +1581,10 @@
       const nowDark = !html.classList.contains('dark');
       applyTheme(nowDark);
       localStorage.setItem('theme', nowDark ? 'dark' : 'light');
+      // Sync Cal.com embed theme if the library has loaded
+      if (typeof Cal !== 'undefined') {
+        Cal('ui', { theme: nowDark ? 'dark' : 'light' });
+      }
     });
 
 
@@ -1589,6 +1726,49 @@
       }
     });
 
+  </script>
+
+  <!-- Cal.com embed — loads the popup library and wires up data-cal-link buttons -->
+  <script type="text/javascript">
+    (function (C, A, L) {
+      let p = function (a, ar) { a.q.push(ar); };
+      let d = C.document;
+      C.Cal = C.Cal || function () {
+        let cal = C.Cal;
+        let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement('script')).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () { p(api, arguments); };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === 'string') {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ['-s', namespace]);
+          } else {
+            p(cal, ar);
+          }
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+    // Read the current site theme so Cal opens in the right mode
+    const calTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+
+    Cal('init', { origin: 'https://cal.com' });
+    Cal('ui', {
+      theme: calTheme,
+      styles: { branding: { brandColor: '#1E3A5F' } },
+      hideEventTypeDetails: false,
+      layout: 'month_view'
+    });
   </script>
 
 </body>
